@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-	<a href="https://github.com/Sumit189/GitGallery-OSS/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/Sumit189/GitGallery-OSS?color=2ea44f&label=release&sort=semver" /></a>
-	<a href="https://github.com/Sumit189/GitGallery-OSS/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Sumit189/GitGallery-OSS?style=social" /></a>
+	<a href="https://github.com/Sumit189/GitGalleryApp/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/Sumit189/GitGalleryApp?color=2ea44f&label=release&sort=semver" /></a>
+	<a href="https://github.com/Sumit189/GitGalleryApp/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Sumit189/GitGalleryApp?style=social" /></a>
 	<img alt="Expo + React Native" src="https://img.shields.io/badge/Expo%20%2B%20React%20Native-16191A?logo=expo&logoColor=00D8FF&labelColor=16191A" />
 	<img alt="License" src="https://img.shields.io/badge/License-MIT%20%28at%20launch%29-0b7285" />
 </p>
