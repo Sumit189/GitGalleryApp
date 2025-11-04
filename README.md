@@ -32,7 +32,7 @@ You can get GitGallery in two ways:
 **Option 2: Get it from Play Store** - Skip the hassle and support the project by purchasing it at a minimal price from Google Play.
 
 <p align="center">
-	<a href="https://play.google.com/store/apps/details?id=com.placeholder.gitgallery">
+	<a href="https://play.google.com/store/apps/details?id=com.gitgallery.app">
 		<img
 			alt="Get it on Google Play"
 			src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
