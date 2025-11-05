@@ -441,6 +441,7 @@ export default function GalleryScreen() {
     if (!permission?.granted) return [];
     setLoadingGrid(true);
     const currentSelectedIds = useAppStore.getState().selectedAlbumIds;
+    const currentSelectionInitialized = useAppStore.getState().selectionInitialized ?? false;
     
     const rememberAlbumName = (useAppStore.getState().rememberAlbumName as ((id: string, name: string) => void) | undefined);
     const albumNameCache = useAppStore.getState().albumNameCache ?? {};
@@ -481,7 +482,7 @@ export default function GalleryScreen() {
       }
     }
 
-    const selectionActive = selectionInitialized || currentSelectedIds.length > 0;
+    const selectionActive = currentSelectionInitialized || currentSelectedIds?.length > 0;
     const workingSelectedIds = selectionActive ? currentSelectedIds.filter((id) => albumMap.has(id)) : [];
 
     if (selectionActive && workingSelectedIds.length === 0) {
