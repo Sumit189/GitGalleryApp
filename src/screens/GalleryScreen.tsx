@@ -51,6 +51,7 @@ export default function GalleryScreen() {
   const currentRepo = useAppStore((s) => s.currentRepo);
   const autoSyncEnabled = useAppStore((s) => s.autoSync);
   const selectedAlbumIds = useAppStore((s) => s.selectedAlbumIds);
+  const selectionInitialized = useAppStore((s) => s.selectionInitialized ?? false);
   const gallerySource = useAppStore((s) => s.gallerySource);
 
   const [permission, requestPermission] = MediaLibrary.usePermissions();
@@ -440,6 +441,7 @@ export default function GalleryScreen() {
     if (!permission?.granted) return [];
     setLoadingGrid(true);
     const currentSelectedIds = useAppStore.getState().selectedAlbumIds;
+    const currentSelectionInitialized = useAppStore.getState().selectionInitialized ?? false;
     
     const rememberAlbumName = (useAppStore.getState().rememberAlbumName as ((id: string, name: string) => void) | undefined);
     const albumNameCache = useAppStore.getState().albumNameCache ?? {};
@@ -480,11 +482,10 @@ export default function GalleryScreen() {
       }
     }
 
-    const selectionActive = currentSelectedIds.length > 0;
+    const selectionActive = currentSelectionInitialized || currentSelectedIds?.length > 0;
     const workingSelectedIds = selectionActive ? currentSelectedIds.filter((id) => albumMap.has(id)) : [];
-    const unavailableSelectedIds = selectionActive ? currentSelectedIds.filter((id) => !albumMap.has(id)) : [];
 
-    if (selectionActive && workingSelectedIds.length === 0 && unavailableSelectedIds.length > 0) {
+    if (selectionActive && workingSelectedIds.length === 0) {
       setEndCursor(null);
       setHasNext(false);
       setAssets([]);

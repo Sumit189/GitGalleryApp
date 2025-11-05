@@ -565,6 +565,7 @@ async function processUploadBatch(assets: MediaLibrary.Asset[], options?: Upload
 
 async function collectAssetsFromSelectedAlbums(maxTotal?: number, options?: { includeUploaded?: boolean }): Promise<MediaLibrary.Asset[]> {
   const selected = useAppStore.getState().selectedAlbumIds;
+  const selectionInitialized = useAppStore.getState().selectionInitialized ?? false;
   const permission = await ensureMediaLibraryPermissions(false);
   if (!permission.granted) {
     return [];
@@ -628,7 +629,12 @@ async function collectAssetsFromSelectedAlbums(maxTotal?: number, options?: { in
     albumMap.set(album.id, album);
   }
 
+  const originalSelectedCount = Array.isArray(selected) ? selected.length : 0;
   const selectedIds = Array.isArray(selected) ? selected.filter((id) => albumMap.has(id)) : [];
+
+  if (selectionInitialized && (originalSelectedCount === 0 || (originalSelectedCount > 0 && selectedIds.length === 0))) {
+    return [];
+  }
 
   if (!selectedIds || selectedIds.length === 0) {
     await ingest({
