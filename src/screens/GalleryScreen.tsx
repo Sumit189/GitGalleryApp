@@ -51,7 +51,7 @@ export default function GalleryScreen() {
   const currentRepo = useAppStore((s) => s.currentRepo);
   const autoSyncEnabled = useAppStore((s) => s.autoSync);
   const selectedAlbumIds = useAppStore((s) => s.selectedAlbumIds);
-  const selectionInitialized = useAppStore((s) => (s as any).selectionInitialized ?? false);
+  const selectionInitialized = useAppStore((s) => s.selectionInitialized ?? false);
   const gallerySource = useAppStore((s) => s.gallerySource);
 
   const [permission, requestPermission] = MediaLibrary.usePermissions();
@@ -483,7 +483,6 @@ export default function GalleryScreen() {
 
     const selectionActive = selectionInitialized || currentSelectedIds.length > 0;
     const workingSelectedIds = selectionActive ? currentSelectedIds.filter((id) => albumMap.has(id)) : [];
-    const unavailableSelectedIds = selectionActive ? currentSelectedIds.filter((id) => !albumMap.has(id)) : [];
 
     if (selectionActive && workingSelectedIds.length === 0) {
       setEndCursor(null);
@@ -500,16 +499,6 @@ export default function GalleryScreen() {
     let resp: { assets: MediaLibrary.Asset[]; endCursor: string | null; hasNextPage: boolean; totalCount?: number } | null = null;
     
     if (workingSelectedIds.length === 0) {
-      if (selectionActive) {
-        setEndCursor(null);
-        setHasNext(false);
-        setAssets([]);
-        setLoadingGrid(false);
-        if (reset && gallerySource === 'local') {
-          useAppStore.getState().bumpAlbumRefreshToken();
-        }
-        return [];
-      }
       const options: MediaLibrary.AssetsOptions = {
         mediaType: ['photo'],
         first: 60,
